@@ -62,7 +62,7 @@ public class Company {
         return driver;
     }
 
-    private Driver getDriverByID(String driverID){
+    public Driver getDriverByID(String driverID){
         for (Driver driver : drivers) {
             if (driver.getDriverID().equals(driverID)) {
                 return driver;
@@ -75,8 +75,8 @@ public class Company {
         return getDriverByID(driverID).getLimousines();
     }
 
-    public Reservation addReservation(Limousine limousine, Driver driver, Route route){
-        Reservation newReservation = new Reservation(limousine, driver, route);
+    public Reservation addReservation(Driver driver, Route route){
+        Reservation newReservation = new Reservation(driver, route);
         this.reservations.add(newReservation);
         return newReservation;
     }
@@ -98,6 +98,32 @@ public class Company {
     public boolean removeDriver(Driver driver){
         return this.drivers.remove(driver);
     }
+
+
+    public int getFoundingYear() {
+        return foundingYear;
+    }
+
+    public ArrayList<Limousine> getLimousines() {
+        return limousines;
+    }
+
+    public ArrayList<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public ArrayList<Route> getRoutes() {
+        return routes;
+    }
+
+    public ArrayList<Reservation> getReservations() {
+        return reservations;
+    }
+
+    //Will not be set cause should not be changed after creation (constructor)
+    /*public void setFoundingYear(int foundingYear) {
+        this.foundingYear = foundingYear;
+    }*/
 }
 
 

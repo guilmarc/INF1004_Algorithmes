@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Created by guilmarc on 2016-01-25.
  */
@@ -9,6 +11,236 @@ public class Homework1 {
     public static void main(String[] args) {
         Homework1 homework1 = new Homework1();
         homework1.generateData();
+
+        char menuInput;
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("******************************************************");
+            System.out.println("* [R] = Faire une réservation de limousine           *");
+            System.out.println("* [L] = Afficher les limousine d'un conducteur       *");
+            System.out.println("* [T] = Afficher les trajets et limousines associées *");
+            System.out.println("******************************************************");
+            System.out.println("* [D] = Ajouter / Supprimer des données              *");
+            System.out.println("* [Q] = Quitter le programme                         *");
+            System.out.println("******************************************************");
+
+            menuInput = scanner.next().toUpperCase().charAt(0);
+
+            switch (menuInput) {
+                case 'R': homework1.addReservation(scanner);
+                    break;
+                case 'L': homework1.showLimousineFromDriverID(scanner);
+                    break;
+                case 'T': homework1.showRoutes();
+                    break;
+                case 'D':
+                    break;
+                case 'Q': //Do nothing, program will close...
+                    break;
+            }
+        }
+        while(menuInput != 'Q') ;
+
+        //Closing the scanner
+        scanner.close();
+    }
+
+    private void showRoutes(){
+        System.out.println("\nVoici la liste de tous les trajets de l'entreprise ainsi que les limousines associées :");
+        System.out.println("---------------------------------------------------------------------------------------");
+        for (Route route : company.getRoutes()) {
+            System.out.println(route);
+        }
+        System.out.println("---------------------------------------------------------------------------------------\n\n");
+    }
+
+    private void showLimousineFromDriverID(Scanner scanner){
+        //Scanner scanner = new Scanner(System.in);
+        System.out.print("Veuillez entrer le numéro du conducteur (exp. FERC15)");
+        String driverID = scanner.nextLine().toUpperCase();
+
+        Driver driver = company.getDriverByID(driverID);
+        if ( driver != null) {
+            System.out.println("\nCe conducteur a déjà utilisé les limousines suivantes :");
+            System.out.println("-------------------------------------------------------");
+
+            for (Limousine limousine : driver.getLimousines()) {
+                System.out.println(limousine);
+            }
+            System.out.println("-------------------------------------------------------\n\n");
+        } else {
+            System.out.println("Conducteur introuvable " + driverID);
+        }
+
+        //scanner.close();
+    }
+
+    private void manageModel(Scanner scanner){
+
+        char menuInput;
+        do {
+            System.out.println("******************************************************");
+            System.out.println("* [C] = Ajouter un conducteur                        *");
+            System.out.println("* [L] = Ajouter une limousine                        *");
+            System.out.println("* [T] = Ajouter un trajet                            *");
+            System.out.println("******************************************************");
+            System.out.println("* [Q] = Quitter le menu                              *");
+            System.out.println("******************************************************");
+
+            menuInput = scanner.next().toUpperCase().charAt(0);
+
+            switch (menuInput) {
+                case 'R': //String firstName, String lastName, int hiredIn, String address
+
+
+                    System.out.println("Entrez le prénom du conducteur:");
+                    String firstName = scanner.next();
+
+                    System.out.println("Entrez le nom du conducteur:");
+                    String lastName = scanner.next();
+
+                    System.out.println("Entrez l'année d'embauche:");
+                    int hiredIn = scanner.nextInt();
+
+                    System.out.println("Entrez l'adresse du conducteur:");
+                    String address = scanner.next();
+
+                    try {
+                        Driver driver = company.addDriver(firstName, lastName, hiredIn, address);
+                        System.out.println("Un nouveau conducteur a été ajouté avec le ID = " + driver.getDriverID());
+                    } catch (TooManyDriversException exception){
+                        exception.printStackTrace();
+                    }
+
+                    break;
+
+                case 'L': //String model, String immatriculation, int tankCapacity, int passengerCapacity, String color
+                    //TODO: WRITE THIS CODE
+                    break;
+                case 'T': //String startingCity, String endingCity, float startingOdometer, float endingOdometer, Limousine limousine
+                    //TODO: WRITE THIS CODE
+                    break;
+                case 'Q': //Do nothing, program will close...
+                    break;
+            }
+        }
+        while(menuInput != 'Q') ;
+    }
+
+
+
+    private void addReservation(Scanner scanner) {
+        boolean validInput = false;
+        Limousine selectedlimousine = null;
+        Route selectedRoute = null;
+        Driver selectedDriver = null;
+
+
+        do {
+            for (Route route : company.getRoutes()){
+                System.out.println("[" + company.getRoutes().indexOf(route) + "] " + route);
+            }
+            System.out.println("Veuilez choisir une route [0 à " + (company.getRoutes().size() - 1) + "]");
+
+            int routeInput = scanner.nextInt();
+            if ((0 <= routeInput) && (routeInput < company.getRoutes().size())) {
+                selectedRoute = company.getRoutes().get(scanner.nextInt());
+                if ( selectedRoute != null ) {
+
+
+                    do {
+                        System.out.println("Il y a présentemente une limousine d'associée à ce trajet.\n Appuyez sur [M] pour modifier la limousine associée ou [C] pour conserver la limousine actuelle:");
+
+                        char choiceInput = scanner.next().toUpperCase().charAt(0);
+                        switch (choiceInput) {
+                            case 'C':
+                                //Nothing to do, we keep the actual limousine
+                                validInput = true;
+                                break;
+                            case 'M':
+
+
+                                //TODO: CODE HERE
+                                do {
+                                    for (Limousine limousine : company.getLimousines()){
+                                        System.out.println("[" + company.getLimousines().indexOf(limousine) + "] " + limousine);
+                                    }
+                                    System.out.println("Veuilez choisir une limousine [0 à " + (company.getLimousines().size() - 1) + "]");
+
+                                    int limousineInput = scanner.nextInt();
+                                    if ((0 <= limousineInput) && (limousineInput < company.getLimousines().size())) {
+                                        selectedlimousine = company.getLimousines().get(scanner.nextInt());
+                                        if ( selectedlimousine != null ) {
+                                            selectedRoute.setLimousine(selectedlimousine);
+                                            validInput = true;
+                                        } else {
+                                            System.out.println("ERREUR : Limousine non trouvée");
+                                            validInput = false;
+                                        }
+                                    } else {
+                                        System.out.println("ERROR: Invalid input [" + limousineInput + "]");
+                                        validInput = false;
+                                    }
+                                } while (! validInput);
+
+
+
+                                validInput = true;
+                                break;
+                            default:
+                                validInput = false;
+                                System.out.println("ERROR: Invalid input");
+                                break;
+                        }
+                    } while (validInput != true);
+
+
+
+                    if (scanner.next().toUpperCase().charAt(0) == 'C') {
+
+
+
+
+                    }
+
+                    validInput = true;
+                } else {
+                    System.out.println("ERREUR : Route non trouvée");
+                    validInput = false;
+                }
+            } else {
+                System.out.println("ERROR: Invalid input [" + routeInput + "]");
+                validInput = false;
+            }
+        } while (! validInput);
+
+
+
+        //Selecting a driver
+        for (Driver driver : company.getDrivers()){
+            System.out.println("[" + company.getDrivers().indexOf(driver) + "] " + driver);
+        }
+        System.out.println("Veuilez choisir un conducteur [0 à " + (company.getDrivers().size() - 1) + "]");
+
+        int driverInput = scanner.nextInt();
+        if ((0 <= driverInput) && (driverInput < company.getDrivers().size())) {
+            selectedDriver = company.getDrivers().get(scanner.nextInt());
+            if ( selectedDriver != null ) {
+                validInput = true;
+            } else {
+                System.out.println("ERREUR : Conducteur non trouvée");
+                validInput = false;
+            }
+        } else {
+            System.out.println("ERROR: Invalid input [" + driverInput + "]");
+            validInput = false;
+        }
+
+        company.addReservation(selectedDriver, selectedRoute);
+
+        System.out.println("La réservation a été sauvegardée avec succès");
+
 
     }
 

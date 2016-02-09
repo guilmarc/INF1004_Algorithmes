@@ -40,8 +40,9 @@ public class Deque<T>{
 
         int temp = this.array[leftIndex];
         leftIndex++;
-        if (leftIndex == (size - 1))
-            leftIndex = -1;
+        //Replace le curseur pour le futur
+        if (leftIndex == (size))
+            leftIndex = 0;
         itemCount--;
         return temp;
     }

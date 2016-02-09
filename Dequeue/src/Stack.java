@@ -11,11 +11,11 @@ public class Stack {
     }
 
     public int pop() {
-        return deque.removeRight();
+        return deque.removeLeft();
     }
 
     public void push(int item){
-        deque.insertRight(item);
+        deque.insertLeft(item);
     }
 
     public boolean isFull(){

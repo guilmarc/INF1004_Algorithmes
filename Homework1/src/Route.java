@@ -14,6 +14,7 @@ public class Route {
         this.endingCity = endingCity;
         this.startingOdometer = startingOdometer;
         this.endingOdometer = endingOdometer;
+        this.limousine = limousine;
     }
 
     public String getStartingCity() {
@@ -57,7 +58,7 @@ public class Route {
     }
 
     public String toString(){
-        return "This is a " + (this.endingOdometer - this.startingOdometer)  + "km route from " + this.startingCity + " to " + this.endingCity + " run by " + this.limousine.toString();
+        return "This is a " + (this.endingOdometer - this.startingOdometer)  + "km route from " + this.startingCity + " to " + this.endingCity + " run by a " + this.limousine.toString();
     }
 }
 

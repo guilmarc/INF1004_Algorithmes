@@ -19,10 +19,7 @@ public class Limousine {
     }
 
     public String toString(){
-        return "a " + this.color + " " + this.model + " with " + this.tankCapacity + " liters tank capacity can " + this.passengerCapacity  +  " 90 passengers";
+        return this.color + " " + this.model + " #" + this.immatriculation  + "with " + this.tankCapacity + " liters tank capacity can afford " + this.passengerCapacity  +  " passengers";
     }
-
 }
-
-
 //Chaque limousine possède les caractéristiques suivantes: le numéro d’immatriculation, la capacité du réservoir, le nombre de passagers, la couleur
