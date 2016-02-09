@@ -19,6 +19,7 @@ public class Company {
         this.limousines = new ArrayList<Limousine>();
         this.drivers = new ArrayList<Driver>();
         this.routes = new ArrayList<Route>();
+        this.reservations = new ArrayList<Reservation>();
     }
 
     public String getName() {

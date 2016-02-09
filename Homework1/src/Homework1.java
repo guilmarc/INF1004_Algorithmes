@@ -8,6 +8,15 @@ public class Homework1 {
     //Creating the company
     Company company = new Company("AutoSupérieur", 2010);
 
+
+    public static int readInt(){
+       return (new Scanner(System.in)).nextInt();
+    }
+
+    public static char readChar(){
+        return (new Scanner(System.in)).next().toUpperCase().charAt(0);
+    }
+
     public static void main(String[] args) {
         Homework1 homework1 = new Homework1();
         homework1.generateData();
@@ -25,7 +34,8 @@ public class Homework1 {
             System.out.println("* [Q] = Quitter le programme                         *");
             System.out.println("******************************************************");
 
-            menuInput = scanner.next().toUpperCase().charAt(0);
+            menuInput = Homework1.readChar(); //scanner.next().toUpperCase().charAt(0);
+            //String emptybuffer = scanner.nextLine();
 
             switch (menuInput) {
                 case 'R': homework1.addReservation(scanner);
@@ -34,7 +44,7 @@ public class Homework1 {
                     break;
                 case 'T': homework1.showRoutes();
                     break;
-                case 'D':
+                case 'D': homework1.manageModel(scanner);
                     break;
                 case 'Q': //Do nothing, program will close...
                     break;
@@ -91,7 +101,7 @@ public class Homework1 {
             menuInput = scanner.next().toUpperCase().charAt(0);
 
             switch (menuInput) {
-                case 'R': //String firstName, String lastName, int hiredIn, String address
+                case 'C': //String firstName, String lastName, int hiredIn, String address
 
 
                     System.out.println("Entrez le prénom du conducteur:");
@@ -116,10 +126,63 @@ public class Homework1 {
                     break;
 
                 case 'L': //String model, String immatriculation, int tankCapacity, int passengerCapacity, String color
-                    //TODO: WRITE THIS CODE
+
+                    System.out.println("Entrez le modèle du véhicule:");
+                    String model = scanner.next();
+
+                    System.out.println("Entrez le numéro d'immatriculation:");
+                    String immatriculation = scanner.next();
+
+                    System.out.println("Entrez la capacité du réservoir (l):");
+                    int tankCapacity = scanner.nextInt();
+
+                    System.out.println("Entrez la capacité de passagers:");
+                    int passengerCapacity = scanner.nextInt();
+
+                    System.out.println("Entrez la couleur:");
+                    String color = scanner.next();
+
+                    Limousine limousine = company.addLimousine(model, immatriculation, tankCapacity, passengerCapacity, color);
+                    System.out.println("Une nouvelle limousine a été ajoutée = " + limousine);
+
                     break;
                 case 'T': //String startingCity, String endingCity, float startingOdometer, float endingOdometer, Limousine limousine
-                    //TODO: WRITE THIS CODE
+
+                    int limousineIndex = 0;
+                    boolean validInput = false;
+
+                    System.out.println("Entrez la ville de départ:");
+                    String startingCity = scanner.next();
+
+                    System.out.println("Entrez la ville de destination:");
+                    String endingCity = scanner.next();
+
+                    System.out.println("Entrez l'odomètre initial:");
+                    float startingOdometer = scanner.nextFloat();
+
+                    System.out.println("Entrez l'odomètre final:");
+                    float endingOdometer = scanner.nextFloat();
+
+                    do {
+                        for (Limousine thisLimousine : company.getLimousines()){
+                            System.out.println("[" + company.getLimousines().indexOf(thisLimousine) + "] " + thisLimousine);
+                        }
+                        System.out.println("Veuilez choisir une limousine [0 à " + (company.getLimousines().size() - 1) + "]");
+
+                        int limousineInput = scanner.nextInt();
+                        if ((0 <= limousineInput) && (limousineInput < company.getLimousines().size())) {
+
+                            limousineIndex = scanner.nextInt();
+                            validInput = true;
+                        } else {
+                            System.out.println("ERROR: Invalid input [" + limousineInput + "]");
+                            validInput = false;
+                        }
+                    } while (! validInput);
+
+                    Route route = company.addRoute(startingCity, endingCity, startingOdometer, endingOdometer, limousineIndex);
+                    System.out.println("Une nouvelle route a été ajoutée = " + route);
+
                     break;
                 case 'Q': //Do nothing, program will close...
                     break;
@@ -194,15 +257,6 @@ public class Homework1 {
                                 break;
                         }
                     } while (validInput != true);
-
-
-
-                    if (scanner.next().toUpperCase().charAt(0) == 'C') {
-
-
-
-
-                    }
 
                     validInput = true;
                 } else {

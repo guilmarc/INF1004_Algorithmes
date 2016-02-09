@@ -18,8 +18,6 @@ public class Driver {
         this.address = address;
         this.routes = new ArrayList<Route>();
         this.driverID = generateDriverID();
-
-        System.out.println(this.driverID);
     }
     
     private String generateDriverID(){
@@ -40,6 +38,10 @@ public class Driver {
             }
         }
         return limousines;
+    }
+
+    public String toString(){
+        return "[" + this.driverID + "] " + this.firstName + " " + this.lastName + " living at " + this.address + " was hired in " + this.hiredIn;
     }
 
 
