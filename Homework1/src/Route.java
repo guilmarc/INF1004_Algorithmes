@@ -1,7 +1,7 @@
 /**
  * Created by guilmarc on 2016-01-25.
  */
-public class Path {
+public class Route {
 
     private String startingCity;
     private String endingCity;
@@ -9,7 +9,7 @@ public class Path {
     private float endingOdometer;
     private Limousine limousine;
 
-    Path(String startingCity, String endingCity, float startingOdometer, float endingOdometer, Limousine limousine){
+    Route(String startingCity, String endingCity, float startingOdometer, float endingOdometer, Limousine limousine){
         this.startingCity = startingCity;
         this.endingCity = endingCity;
         this.startingOdometer = startingOdometer;
@@ -54,6 +54,10 @@ public class Path {
 
     public void setLimousine(Limousine limousine) {
         this.limousine = limousine;
+    }
+
+    public String toString(){
+        return "This is a " + (this.endingOdometer - this.startingOdometer)  + "km route from " + this.startingCity + " to " + this.endingCity + " run by " + this.limousine.toString();
     }
 }
 

@@ -9,7 +9,7 @@ public class Company {
     private int foundingYear;
     private ArrayList<Limousine> limousines;
     private ArrayList<Driver> drivers;
-    private ArrayList<Path> paths;
+    private ArrayList<Route> routes;
     private ArrayList<Reservation> reservations;
 
     Company(String name, int foundingYear){
@@ -18,7 +18,7 @@ public class Company {
 
         this.limousines = new ArrayList<Limousine>();
         this.drivers = new ArrayList<Driver>();
-        this.paths = new ArrayList<Path>();
+        this.routes = new ArrayList<Route>();
     }
 
     public String getName() {
@@ -46,27 +46,44 @@ public class Company {
     }
 
 
-    public Path addPath(String startingCity, String endingCity, float startingOdometer, float endingOdometer, int limousineID){
-        Path newPath = new Path(startingCity, endingCity, startingOdometer, endingOdometer, this.limousines.get(limousineID));
-        this.paths.add(newPath);
-        return newPath;
+    public Route addRoute(String startingCity, String endingCity, float startingOdometer, float endingOdometer, int limousineID){
+        Route newRoute = new Route(startingCity, endingCity, startingOdometer, endingOdometer, this.limousines.get(limousineID));
+        this.routes.add(newRoute);
+        return newRoute;
     }
 
 
-    public Driver linkDriverToPath(String driverID, int[] paths){
+    public Driver linkDriverToRoute(String driverID, int[] routes){
+        Driver driver = this.getDriverByID(driverID);
+        for( int index : routes ) {
+            driver.addRoute(this.routes.get(index));
+        }
 
+        return driver;
+    }
+
+    private Driver getDriverByID(String driverID){
+        for (Driver driver : drivers) {
+            if (driver.getDriverID().equals(driverID)) {
+                return driver;
+            }
+        }
         return null;
     }
 
-    public Reservation addReservation(Limousine limousine, Driver driver, Path path){
-        Reservation newReservation = new Reservation(limousine, driver, path);
+    public ArrayList<Limousine> getLimousinesWithDriverID(String driverID){
+        return getDriverByID(driverID).getLimousines();
+    }
+
+    public Reservation addReservation(Limousine limousine, Driver driver, Route route){
+        Reservation newReservation = new Reservation(limousine, driver, route);
         this.reservations.add(newReservation);
         return newReservation;
     }
 
     public void useReservation(Reservation reservation){
 
-        reservation.driver.addPath(reservation.path);
+        reservation.driver.addRoute(reservation.route);
         this.removeReservation(reservation);
     }
 

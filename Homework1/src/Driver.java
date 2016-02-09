@@ -9,26 +9,78 @@ public class Driver {
     private String lastName;
     private int hiredIn;        //Année d'embauche
     private String address;
-    private ArrayList<Path> paths;
+    private ArrayList<Route> routes;
 
     Driver(String firstName, String lastName, int hiredIn, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hiredIn = hiredIn;
         this.address = address;
-        this.paths = new ArrayList<Path>();
+        this.routes = new ArrayList<Route>();
         this.driverID = generateDriverID();
+
+        System.out.println(this.driverID);
     }
     
     private String generateDriverID(){
         //TODO: Generate the driverID here -> MUNA15 ("Munoz", "Armando", 2015, "4698 rue Fournier (St-Jerôme)  J7Z 4V1")
-        return "EMPTY";
+        return this.firstName.substring(0, 3).toUpperCase() + this.lastName.substring(0,1).toUpperCase() + Integer.toString(this.hiredIn).substring(2,4);
     }
 
-    public void addPath(Path path){
-        this.paths.add(path);
+    public void addRoute(Route route){
+        this.routes.add(route);
     }
 
+    public ArrayList<Limousine> getLimousines(){
+        ArrayList<Limousine> limousines = new ArrayList<Limousine>();
+        for(Route route : routes) {
+            //If the limousine is nos already in the array
+            if (limousines.indexOf(route.getLimousine()) == -1) {
+                limousines.add(route.getLimousine());
+            }
+        }
+        return limousines;
+    }
+
+
+    //Getters
+    public String getDriverID() {
+        return driverID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getHiredIn() {
+        return hiredIn;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+
+    //Setters
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setHiredIn(int hiredIn) {
+        this.hiredIn = hiredIn;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
 
 //Par ailleurs, la compagnie doit conserver certaines informations concernant les chauffeurs à savoir: le nom, le prénom,

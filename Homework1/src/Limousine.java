@@ -18,6 +18,10 @@ public class Limousine {
         this.color = color;
     }
 
+    public String toString(){
+        return "a " + this.color + " " + this.model + " with " + this.tankCapacity + " liters tank capacity can " + this.passengerCapacity  +  " 90 passengers";
+    }
+
 }
 
 

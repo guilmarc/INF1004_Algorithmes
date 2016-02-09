@@ -4,11 +4,11 @@
 public class Reservation {
     Limousine limousine;
     Driver driver;
-    Path path;
+    Route route;
 
-    public Reservation(Limousine limousine, Driver driver, Path path) {
+    public Reservation(Limousine limousine, Driver driver, Route route) {
         this.limousine = limousine;
         this.driver = driver;
-        this.path = path;
+        this.route = route;
     }
 }
