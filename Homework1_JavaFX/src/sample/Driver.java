@@ -1,9 +1,13 @@
 //  Driver.java
 //	Author: Marco Choinière-Guillemette
-//	Hiver 2016
+//	Hiver 2015
 //  Classe responsable du model de données des conducteurs
 //********************************************************************
 
+package sample;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -15,7 +19,6 @@ public class Driver {
     private String address;
     private ArrayList<Route> routes;
 
-    //Constructeur de la classe conducteur
     Driver(String firstName, String lastName, int hiredIn, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,22 +27,20 @@ public class Driver {
         this.routes = new ArrayList<Route>();
         this.driverID = generateDriverID();
     }
-
-    //Methode privée servant à générer le code du conducteur selon certains critères
+    
     private String generateDriverID(){
         return this.firstName.substring(0, 3).toUpperCase() + this.lastName.substring(0,1).toUpperCase() + Integer.toString(this.hiredIn).substring(2,4);
     }
 
-    //Associe une route existante à ce conducteur
     public void addRoute(Route route){
         this.routes.add(route);
     }
 
-    //Retourne les limousines associées à ce conducteur
-    public ArrayList<Limousine> getLimousines(){
-        ArrayList<Limousine> limousines = new ArrayList<Limousine>();
+    public ObservableList<Limousine> getLimousines(){
+        ObservableList<Limousine> limousines = FXCollections.observableArrayList();
+
         for(Route route : routes) {
-            //If the limousine is not already in the array
+            //If the limousine is nos already in the array
             if (limousines.indexOf(route.getLimousine()) == -1) {
                 limousines.add(route.getLimousine());
             }
@@ -48,7 +49,7 @@ public class Driver {
     }
 
 
-    //Liste des "getters" disponibles
+    //Getters
     public String getDriverID() {
         return driverID;
     }
@@ -70,7 +71,7 @@ public class Driver {
     }
 
 
-    //Liste des "setters" disponibles
+    //Setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -88,7 +89,7 @@ public class Driver {
     }
 
 
-    //Affichage textuel de cet objet
+    //Display textually this object
     public String toString(){
         return "[" + this.driverID + "] " + this.firstName + " " + this.lastName + " living at " + this.address + " was hired in " + this.hiredIn;
     }

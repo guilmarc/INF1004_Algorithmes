@@ -1,28 +1,25 @@
 //  Homework1.java
 //	Author: Marco Choinière-Guillemette
-//	Hiver 2016
+//	Hiver 2015
 //  Système de réservation de limousines - Auto Supérieur
 //********************************************************************
+
+package sample;
 
 import java.util.Scanner;
 
 public class Homework1 {
 
-    //Création de la classe principale, compagnie
+    //Creating the company
     Company company = new Company("AutoSupérieur", 2010);
 
-
     public static void main(String[] args) {
-
         Homework1 homework1 = new Homework1();
-
-        //Génération des donnnées
         homework1.generateData();
 
         char menuInput;
         Scanner scanner = new Scanner(System.in);
 
-        //Affichage du menu principal
         do {
             System.out.println("******************************************************");
             System.out.println("* [R] = Faire une réservation de limousine           *");
@@ -54,7 +51,6 @@ public class Homework1 {
         scanner.close();
     }
 
-    //Affiche les trajets de l'entreprise
     private void showRoutes(){
         System.out.println("\nVoici la liste de tous les trajets de l'entreprise ainsi que les limousines associées :");
         System.out.println("---------------------------------------------------------------------------------------");
@@ -62,7 +58,6 @@ public class Homework1 {
         System.out.println("---------------------------------------------------------------------------------------\n\n");
     }
 
-    //Affiche les limousines associées à un conducteur spécifique
     private void showLimousineFromDriverID(Scanner scanner){
         //Scanner scanner = new Scanner(System.in);
         System.out.print("\nVeuillez entrer le numéro du conducteur (exp. FERC15) : ");
@@ -81,7 +76,6 @@ public class Homework1 {
         //scanner.close();
     }
 
-    //Menu de gestion du model (ajout de données)
     private void manageModel(Scanner scanner){
 
         char menuInput;
@@ -97,7 +91,7 @@ public class Homework1 {
             menuInput = scanner.next().toUpperCase().charAt(0);
 
             switch (menuInput) {
-                case 'C':   //Ajout d'un conducteur
+                case 'C': //String firstName, String lastName, int hiredIn, String address
 
 
                     System.out.print("\nEntrez le prénom du conducteur : ");
@@ -121,7 +115,7 @@ public class Homework1 {
 
                     break;
 
-                case 'L':   //Ajout d'une limousine
+                case 'L': //String model, String immatriculation, int tankCapacity, int passengerCapacity, String color
 
                     System.out.print("\nEntrez le modèle du véhicule : ");
                     String model = scanner.next();
@@ -142,7 +136,7 @@ public class Homework1 {
                     System.out.println("\nUne nouvelle limousine a été ajoutée = " + limousine);
 
                     break;
-                case 'T':   //Ajout d'un trajet lié à une limousine
+                case 'T': //String startingCity, String endingCity, float startingOdometer, float endingOdometer, Limousine limousine
 
                     int limousineIndex = 0;
                     boolean validInput;
@@ -186,7 +180,7 @@ public class Homework1 {
     }
 
 
-    //Ajout d'une réservation
+
     private void addReservation(Scanner scanner) {
         boolean validInput;
         Limousine selectedlimousine;
@@ -261,7 +255,7 @@ public class Homework1 {
 
 
         do {
-            //Sélection d'un conducteur dans la liste par un numéro
+            //Selecting a driver
             for (Driver driver : company.getDrivers()){
                 System.out.println("[" + company.getDrivers().indexOf(driver) + "] " + driver);
             }
@@ -291,7 +285,7 @@ public class Homework1 {
 
     private void generateData() {
 
-        //Génération des limousines
+        //Generate all limousine
         company.addLimousine("Mercedes Classe S W220 500", "LIM 983", 88, 5, "Noire");
         company.addLimousine("Mercedes Classe S W220 430", "823 MIL", 88, 5, "Noire");
         company.addLimousine("Mercedes Classe S 600 Limousine 2012", "L89 SSX", 90, 5, "Rouge");
@@ -304,7 +298,6 @@ public class Homework1 {
         company.addLimousine("Rolls-Royce Silver Spur II Limousine", "370 RRS", 107, 3, "Argent");
 
         try {
-            //Génération des conducteurs
             company.addDriver("Munoz", "Armando", 2015, "4698 rue Fournier (St-Jerôme)  J7Z 4V1");
             company.addDriver("Summers", "Gabriel", 2015, "3589 avenue Port-Royal (Bonaventure)  G0C 1E1");
             company.addDriver("Nathan", "Christopher", 2011, "4457 rue des Églises Est (St Paul D)  J0E 1A0");
@@ -319,8 +312,6 @@ public class Homework1 {
             //Can't have more than 12 drivers
             exception.printStackTrace();
         }
-
-        //Génération des trajets
         company.addRoute("Montreal", "Quebec", 2122, 2358, 1);
         company.addRoute("Laval", "Gatineau", 11895, 12051, 4);
         company.addRoute("Longueuil", "Sherbrooke", 12744, 12871, 9);

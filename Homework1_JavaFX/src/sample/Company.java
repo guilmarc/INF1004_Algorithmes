@@ -1,39 +1,48 @@
 //  Company.java
 //	Author: Marco Choinière-Guillemette
-//	Hiver 2016
+//	Hiver 2015
 //  Classe maîtresse utilisant la composition afin de sauvegarder les informations sur la compagnie
 //*************************************************************************************************
+package sample;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+
 
 public class Company {
 
     private String name;
     private int foundingYear;
-    private ArrayList<Limousine> limousines;
-    private ArrayList<Driver> drivers;
-    private ArrayList<Route> routes;
-    private ArrayList<Reservation> reservations;
+    private ObservableList<Limousine> limousines;
+    private ObservableList<Driver> drivers;
+    private ObservableList<Route> routes;
+    private ObservableList<Reservation> reservations;
 
-    //Constructeur de la classe compagnie
     Company(String name, int foundingYear){
         this.name = name;
         this.foundingYear = foundingYear;
 
-        this.limousines = new ArrayList<Limousine>();
-        this.drivers = new ArrayList<Driver>();
-        this.routes = new ArrayList<Route>();
-        this.reservations = new ArrayList<Reservation>();
+        this.limousines = FXCollections.observableArrayList();
+        this.drivers = FXCollections.observableArrayList();
+        this.routes = FXCollections.observableArrayList();
+        this.reservations = FXCollections.observableArrayList();
     }
 
-    //Ajouter une limousine dans la liste
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Limousine addLimousine(String model, String immatriculation, int tankCapacity, int passengerCapacity, String color) {
         Limousine newLimousine = new Limousine(model, immatriculation,  tankCapacity,  passengerCapacity, color);
         this.limousines.add(newLimousine);
         return newLimousine;
     }
 
-    //Ajouter un conducteur dans la liste.  Cette méthode retourne une exception s'il y a déjà 12 conducteurs
     public Driver addDriver(String firstName, String lastName, int hiredIn, String address) throws TooManyDriversException  {
         if (this.drivers.size() >= 12) {
             throw new TooManyDriversException("Company doesn't accept more drivers (12 max)");
@@ -44,14 +53,14 @@ public class Company {
         return newDriver;
     }
 
-    //Ajouter un trajet dans la liste
+
     public Route addRoute(String startingCity, String endingCity, float startingOdometer, float endingOdometer, int limousineID){
         Route newRoute = new Route(startingCity, endingCity, startingOdometer, endingOdometer, this.limousines.get(limousineID));
         this.routes.add(newRoute);
         return newRoute;
     }
 
-    //Lier un conducteur à un trajet
+
     public Driver linkDriverToRoute(String driverID, int[] routes){
         Driver driver = this.getDriverByID(driverID);
         for( int index : routes ) {
@@ -61,7 +70,6 @@ public class Company {
         return driver;
     }
 
-    //Retourne un conducteur en le recherchant par son code
     public Driver getDriverByID(String driverID){
         for (Driver driver : drivers) {
             if (driver.getDriverID().equals(driverID)) {
@@ -71,12 +79,10 @@ public class Company {
         return null;
     }
 
-    //Retourne la liste des limousines associées à un conducteur
-    public ArrayList<Limousine> getLimousinesWithDriverID(String driverID){
+    public ObservableList<Limousine> getLimousinesWithDriverID(String driverID){
         return getDriverByID(driverID).getLimousines();
     }
 
-    //Ajouter une réservation de route liée à un conducteur dans la liste
     public Reservation addReservation(Driver driver, Route route){
         Reservation newReservation = new Reservation(driver, route);
         this.reservations.add(newReservation);
@@ -84,28 +90,26 @@ public class Company {
     }
 
 
-    //Liste des assenceurs disponibles au publique
+    //Getters
     public int getFoundingYear() {
         return foundingYear;
     }
 
-    public ArrayList<Limousine> getLimousines() {
+    public ObservableList<Limousine> getLimousines() {
         return limousines;
     }
 
-    public ArrayList<Driver> getDrivers() {
+    public ObservableList<Driver> getDrivers() {
         return drivers;
     }
 
-    public ArrayList<Route> getRoutes() {
+    public ObservableList<Route> getRoutes() {
         return routes;
     }
 
-    public ArrayList<Reservation> getReservations() {
+    public ObservableList<Reservation> getReservations() {
         return reservations;
     }
-
-    public String getName() { return name; }
 
     //Will not be set cause should not be changed after creation (constructor)
     /*public void setFoundingYear(int foundingYear) {

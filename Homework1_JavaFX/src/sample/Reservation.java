@@ -1,8 +1,10 @@
 //  Reservation.java
 //	Author: Marco Choinière-Guillemette
-//	Hiver 2016
+//	Hiver 2015
 //  Classe responsable du model de donnée des réservations
 //********************************************************************
+
+package sample;
 
 public class Reservation {
     Driver driver;
@@ -15,4 +17,7 @@ public class Reservation {
 
     //No getters or setters here cause only constructor can modify driver & route
 
+    public Limousine getLimousine(){
+        return this.route.getLimousine();
+    }
 }

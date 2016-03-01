@@ -1,8 +1,9 @@
 //  Route.java
 //	Author: Marco Choinière-Guillemette
-//	Hiver 2016
+//	Hiver 2015
 //  Classe responsable du model de donnée des trajets
 //********************************************************************
+package sample;
 
 public class Route {
 
@@ -12,7 +13,6 @@ public class Route {
     private float endingOdometer;
     private Limousine limousine;
 
-    //Constructeur de la classe trajet
     Route(String startingCity, String endingCity, float startingOdometer, float endingOdometer, Limousine limousine){
         this.startingCity = startingCity;
         this.endingCity = endingCity;
@@ -21,7 +21,7 @@ public class Route {
         this.limousine = limousine;
     }
 
-    ////Liste des "getters" disponibles
+    //Getters
     public String getStartingCity() {
         return startingCity;
     }
@@ -43,7 +43,7 @@ public class Route {
     }
 
 
-    ////Liste des "setters" disponibles
+    //Setters
     public void setStartingCity(String startingCity) {
         this.startingCity = startingCity;
     }
@@ -65,7 +65,7 @@ public class Route {
     }
 
 
-    //Affichage textuel de cet objet
+    //Display textually this object
     public String toString(){
         return "This is a " + (this.endingOdometer - this.startingOdometer)  + "km route from " + this.startingCity + " to " + this.endingCity + " run by a " + this.limousine.toString();
     }

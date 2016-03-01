@@ -1,9 +1,10 @@
 //  Limousine.java
 //	Author: Marco Choinière-Guillemette
-//	Hiver 2016
+//	Hiver 2015
 //  Classe responsable du model de données des limousines
 //********************************************************************
 
+package sample;
 
 public class Limousine {
     private String model;
@@ -20,7 +21,7 @@ public class Limousine {
         this.color = color;
     }
 
-    ////Liste des "getters" disponibles
+    //Getters
     public String getModel() {
         return model;
     }
@@ -42,7 +43,7 @@ public class Limousine {
     }
 
 
-    ////Liste des "setters" disponibles
+    //Setters
     public void setModel(String model) {
         this.model = model;
     }
@@ -63,7 +64,7 @@ public class Limousine {
         this.color = color;
     }
 
-    //Affichage textuel de cet objet
+    //Display textually this object
     public String toString(){
         return this.color + " " + this.model + " #" + this.immatriculation  + "with " + this.tankCapacity + " liters tank capacity can afford " + this.passengerCapacity  +  " passengers";
     }
