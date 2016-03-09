@@ -5,8 +5,8 @@
 //********************************************************************
 
 public class Reservation {
-    Driver driver;
-    Route route;
+    private Driver driver;
+    private Route route;
 
     public Reservation(Driver driver, Route route) {
         this.driver = driver;
