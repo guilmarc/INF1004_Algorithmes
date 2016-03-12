@@ -16,26 +16,33 @@ class InToPost // infix to postfix conversion
     {
         for (int j = 0; j < input.length(); j++) {
             char ch = input.charAt(j);
-            theStack.displayStack("For " + ch +""); // *diagnostic*
+            theStack.displayStack("For " + ch + " "); // *diagnostic*
             switch (ch) {
                 case '+': // it’s + or -
                 case '-':
-                    gotOper(ch, 1); // go pop operators
+                    gotOperator(ch, 1); // go pop operators
                     break; // (precedence 1)
                 case '*': // it’s * or /
                 case '/':
-                    gotOper(ch, 2); // go pop operators
+                    gotOperator(ch, 2); // go pop operators
                     break; // (precedence 2)
                 case '(': // it’s a left paren
                     theStack.push(ch); // push it
                     break;
                 case ')': // it’s a right paren
-                    gotParen(ch); // go pop operators
+                    gotParenthesis(ch); // go pop operators
                     break;
                 case ' ': //We do nothing here
                     break;
                 default: // must be an operand
                     output = output + ch; // write it to output
+
+                    if (j < input.length() - 1) { //If this is not the last character
+                        if( !(Character.isDigit(input.charAt(j + 1)) || input.charAt(j + 1) == '.' )) {
+                            output += ' '; //Adding a space
+                        }
+                    }
+
                     break;
             } // end switch
         } // end for
@@ -49,7 +56,7 @@ class InToPost // infix to postfix conversion
     } // end doTrans()
 
 
-    public void gotOper(char opThis, int prec1) { // got operator from input
+    public void gotOperator(char opThis, int prec1) { // got operator from input
         while (!theStack.isEmpty()) {
             char opTop = theStack.pop();
             if (opTop == '(') // if it’s a ‘(‘
@@ -60,9 +67,9 @@ class InToPost // infix to postfix conversion
             {
                 int prec2; // precedence of new op
                 if (opTop =='+'||opTop =='-') // find new op prec
-                prec2 = 1;
+                    prec2 = 1;
                 else
-                prec2 = 2;
+                    prec2 = 2;
                 if (prec2 < prec1) // if prec of new op less
                 { // than prec of old
                     theStack.push(opTop); // save newly-popped op
@@ -75,13 +82,13 @@ class InToPost // infix to postfix conversion
     } // end gotOp()
 
 
-    public void gotParen(char ch) { // got right paren from input
+    public void gotParenthesis(char ch) { // got right paren from input
         while (!theStack.isEmpty()) {
             char chx = theStack.pop();
             if (chx =='(') // if popped ‘(‘
             break; // we’re done
             else // if popped operator
-            output = output + chx; // output it
+            output = output + chx ; // output it
         } // end while
     } // end popOps()
 } // end class InToPost
