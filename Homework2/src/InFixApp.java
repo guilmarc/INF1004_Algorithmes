@@ -15,11 +15,11 @@ class InfixApp
             //if( input.equals("") ) // quit if [Enter]
              //   break;
 
-            input = "(100+5.75) + 100";  //Sortie -> 100 5.75 + 100 +
+            input = "$(10*10) -30 ";  //Sortie -> 100 5.75 + 100 +
 
             // make a translator
             InToPost theTrans = new InToPost(input);
-            output = theTrans.doTrans(); // do the translation
+            output = theTrans.doTranslation(); // do the translation
             System.out.println("Postfix is " + output + '\n');
       //  } // end while
     } // end main()
