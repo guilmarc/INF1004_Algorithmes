@@ -1,28 +1,31 @@
-// infix.java
-// converts infix arithmetic expressions to postfix
-// to run this program: C>java InfixApp
-import java.io.*; // for I/O
-////////////////////////////////////////////////////////////////
-class StackX
+/**
+* Class : StackX.java
+* Author : Marco Choiniere-Guilmette
+* Date : 2016-03-12
+*
+* Description : This is a generic stack able to stack any type of object / primitive
+*/
+
+class StackX<T>
 {
     private int maxSize;
-    private char[] stackArray;
+    private T[] stackArray;
     private int top;
     //--------------------------------------------------------------
     public StackX(int s) // constructor
     {
         maxSize = s;
-        stackArray = new char[maxSize];
+        stackArray = (T[]) new Object[maxSize];
         top = -1;
     }
     //--------------------------------------------------------------
-    public void push(char j) // put item on top of stack
+    public void push(T j) // put item on top of stack
     { stackArray[++top] = j; }
     //--------------------------------------------------------------
-    public char pop() // take item from top of stack
+    public T pop() // take item from top of stack
     { return stackArray[top--]; }
     //--------------------------------------------------------------
-    public char peek() // peek at top of stack
+    public T peek() // peek at top of stack
     { return stackArray[top]; }
     //--------------------------------------------------------------
     public boolean isEmpty() // true if stack is empty
@@ -31,7 +34,7 @@ class StackX
     public int size() // return size
     { return top+1; }
     //--------------------------------------------------------------
-    public char peekN(int n) // return item at index n
+    public T peekN(int n) // return item at index n
     { return stackArray[n]; }
     //--------------------------------------------------------------
     public void displayStack(String s)

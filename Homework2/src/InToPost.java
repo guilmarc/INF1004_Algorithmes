@@ -1,3 +1,11 @@
+/**
+* Class : InToPost.java
+* Author : Marco Choiniere-Guilmette
+* Date : 2016-03-12
+*
+* Description : This class transforms an infix expression to postfix expression
+*/
+
 class InToPost // infix to postfix conversion
 {
     private StackX theStack;
@@ -16,7 +24,7 @@ class InToPost // infix to postfix conversion
     {
         for (int j = 0; j < input.length(); j++) {
             char ch = input.charAt(j);
-            theStack.displayStack("For " + ch + " "); // *diagnostic*
+            //theStack.displayStack("For " + ch + " "); // *diagnostic*
             switch (ch) {
                 case '+': // it’s + or -
                 case '-':
@@ -26,8 +34,8 @@ class InToPost // infix to postfix conversion
                 case '/':
                     addOperator(ch, 2); // go pop operators
                     break; // (precedence 2)
-                case '$':
-                    addOperator(ch, 3);
+                case '$':  // it’s $
+                    addOperator(ch, 3); // go pop operators
                     break;
                 case '(': // it’s a left paren
                     theStack.push(ch); // push it
@@ -57,19 +65,19 @@ class InToPost // infix to postfix conversion
         //Pop and Output all the remaining operators
         while (!theStack.isEmpty())
         {
-            theStack.displayStack("While "); // *diagnostic*
+            //theStack.displayStack("While "); // *diagnostic*
             output = output + theStack.pop();
             if (!theStack.isEmpty())
                 output += ' '; //Adding a space since there is more to come
         }
-        theStack.displayStack("End "); // *diagnostic*
+        //theStack.displayStack("End "); // *diagnostic*
         return output; // return postfix
     } // end doTrans()
 
 
     public void addOperator(char opThis, int precedence1) { // got operator from input
         while (!theStack.isEmpty()) {
-            char opTop = theStack.pop();
+            char opTop = (char)theStack.pop();
             if (opTop == '(') // if it’s a ‘(‘
             {
                 theStack.push(opTop); // restore ‘(‘
@@ -108,7 +116,7 @@ class InToPost // infix to postfix conversion
 
     public void gotParenthesis(char ch) { // got right paren from input
         while (!theStack.isEmpty()) {
-            char chx = theStack.pop();
+            char chx = (char)theStack.pop();
             if (chx =='(') // if popped ‘(‘
                 break; // we’re done
             else // if popped operator
