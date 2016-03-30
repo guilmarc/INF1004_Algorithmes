@@ -1,30 +1,31 @@
 /**
  * Created by guilmarc on 2016-03-28.
  */
-public class Link {
+public class Link<T> {
 
-    private Object data;
+    private T data;
 
-    private Link next;
-    private Link previous;
+    private Link nextStudent;
+    private Link nextCourse;
 
-    public Link(Object data) {
+    public Link(T data) {
         this.data = data;
     }
 
     public Link getNext() {
-        return next;
+        return data instanceof Course ? nextCourse : nextStudent;
     }
 
-    public void setNext(Link next) {
-        this.next = next;
+    public void setNext(Link link) {
+        if( link.data instanceof Course ) {
+            nextCourse = link;
+        } else {
+            nextStudent = link;
+        }
     }
 
-    public Link getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Link previous) {
-        this.previous = previous;
+    public void displayLink() // display ourself
+    {
+        System.out.print("{" + data + "} ");
     }
 }

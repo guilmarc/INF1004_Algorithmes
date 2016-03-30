@@ -14,7 +14,7 @@ public class Student implements Comparable<Student> {
 
     private int numberOfInscriptions;
 
-    DoublyLinkedList<Course> courses;
+    LinkedList<Course> courses;
 
     public Student(String permanentCode, String lastName, String firstName, String programNumber, int credits, float cumulativeAverage, int numberOfInscriptions) {
         this.permanentCode = permanentCode;

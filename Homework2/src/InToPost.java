@@ -52,7 +52,7 @@ class InToPost // infix to postfix conversion
                         if( !(Character.isDigit(input.charAt(j + 1)) || input.charAt(j + 1) == '.' )) {
                             output += ' '; //Adding a space after number
                         }
-                    } else {
+                    } else {  //This is the last
                         if (!theStack.isEmpty()) {
                             output += ' '; //Adding a space since there is more to come
                         }
