@@ -23,14 +23,6 @@ public class Course {
         }
     }
 
-    public Link getFirstStudent() {
-        return firstStudent;
-    }
-
-    public void setFirstStudent(Link firstStudent) {
-        this.firstStudent = firstStudent;
-    }
-
     @Override
     public String toString(){
         return "[" + this.code + "] - " + this.name;

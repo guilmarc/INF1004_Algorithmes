@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Homework3 {
 
@@ -8,19 +8,71 @@ public class Homework3 {
     static University university = new University();
 
     public static void main(String[] args) {
-	// write your code here
+
         Homework3 homework3 = new Homework3();
         homework3.generateData();
 
-        university.showCoursesForStudentIndex(0);
+        //For test only
+        //university.showCoursesForStudentIndex(0);
+        //university.showStudentsForCourseIndex(18);
 
-        university.showStudentsForCourseIndex(2);
+        char menuInput;
+        Scanner scanner = new Scanner(System.in);
 
-        university.removeInscription(0, 2);
+        //Affichage du menu principal
+        do {
+            System.out.println("******************************************************");
+            System.out.println("* [L] = Lecture des données à partir d'un fichier    *");
+            System.out.println("* [I] = Inscription de l'étudiant                    *");
+            System.out.println("* [E] = Liste des étudiants inscrits à un cours      *");
+            System.out.println("* [C] = Liste des cours suivis par l'étudiant        *");
+            System.out.println("* [S] = Sauvegarde des données dans un fichier       *");
+            System.out.println("******************************************************");
+            System.out.println("* [Q] = Quitter le programme                         *");
+            System.out.println("******************************************************");
 
-        university.showCoursesForStudentIndex(0);
+            menuInput = scanner.next().toUpperCase().charAt(0);
 
-        university.showStudentsForCourseIndex(2);
+            switch (menuInput) {
+                case 'L': homework3.readDataFromFile();
+                    break;
+                case 'I': homework3.manageInscriptions(scanner);
+                    break;
+                case 'E': homework3.showStudentsForCourse(scanner);
+                    break;
+                case 'C': homework3.showCoursesForStudent(scanner);
+                    break;
+                case 'S': homework3.saveDataToFile();
+                    break;
+                case 'Q': //Do nothing, program will close...
+                    break;
+            }
+        }
+        while(menuInput != 'Q') ;
+
+        //Closing the scanner
+        scanner.close();
+
+    }
+
+    public void readDataFromFile() {
+
+    }
+
+    public void manageInscriptions(Scanner scanner){
+
+    }
+
+    public void showStudentsForCourse(Scanner scanner){
+
+    }
+
+    public void showCoursesForStudent(Scanner scanner){
+
+    }
+
+    public void saveDataToFile(){
+
     }
 
     public void generateData(){

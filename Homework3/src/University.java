@@ -44,7 +44,7 @@ public class University {
         while (current != null) {
             Student student = students.get(current.studentIndex);
             System.out.println(student.toString());
-            current = current.nextCourse;
+            current = current.nextStudent;
         }
 
         System.out.println();
@@ -127,7 +127,7 @@ public class University {
     private Link findInscription(int studentIndex, int courseIndex){
 
         Student student = students.get(studentIndex);
-        Link current = student.getFirstCourse();
+        Link current = student.firstCourse;
         while(current.courseIndex != courseIndex) {
             if(current.nextCourse == null) {
                 return null;

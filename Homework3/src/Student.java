@@ -26,14 +26,6 @@ public class Student  {
         this.numberOfInscriptions = numberOfInscriptions;
     }
 
-    public Link getFirstCourse() {
-        return firstCourse;
-    }
-
-    public void setFirstCourse(Link firstCourse) {
-        this.firstCourse = firstCourse;
-    }
-
     public String toString(){
         return this.firstName + " " + this.lastName + " [" + this.permanentCode + "]";
     }
