@@ -1,31 +1,56 @@
 /**
  * Created by guilmarc on 2016-03-28.
  */
-public class Link<T> {
+public class Link {
 
-    private T data;
+    public int studentIndex;
+    public int courseIndex;
 
-    private Link nextStudent;
-    private Link nextCourse;
+    public Link nextStudent;
+    public Link nextCourse;
 
-    public Link(T data) {
-        this.data = data;
+    //public Link previousStudent;
+    //public Link previousCourse;
+
+    public Link(int studentIndex, int courseIndex ) {
+        this.studentIndex = studentIndex;
+        this.courseIndex = courseIndex;
     }
 
-    public Link getNext() {
-        return data instanceof Course ? nextCourse : nextStudent;
+    public int getStudentIndex() {
+        return studentIndex;
     }
 
-    public void setNext(Link link) {
-        if( link.data instanceof Course ) {
-            nextCourse = link;
-        } else {
-            nextStudent = link;
-        }
+    public void setStudentIndex(int studentIndex) {
+        this.studentIndex = studentIndex;
+    }
+
+    public int getCourseIndex() {
+        return courseIndex;
+    }
+
+    public void setCourseIndex(int courseIndex) {
+        this.courseIndex = courseIndex;
+    }
+
+    public Link getNextStudent() {
+        return nextStudent;
+    }
+
+    public void setNextStudent(Link nextStudent) {
+        this.nextStudent = nextStudent;
+    }
+
+    public Link getNextCourse() {
+        return nextCourse;
+    }
+
+    public void setNextCourse(Link nextCourse) {
+        this.nextCourse = nextCourse;
     }
 
     public void displayLink() // display ourself
     {
-        System.out.print("{" + data + "} ");
+        System.out.print("{" + studentIndex + "} ");
     }
 }

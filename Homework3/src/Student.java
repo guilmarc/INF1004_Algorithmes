@@ -1,7 +1,7 @@
 /**
  * Created by guilmarc on 2016-03-28.
  */
-public class Student implements Comparable<Student> {
+public class Student  {
 
     private String permanentCode;
     private String lastName;
@@ -14,7 +14,7 @@ public class Student implements Comparable<Student> {
 
     private int numberOfInscriptions;
 
-    LinkedList<Course> courses;
+    public Link firstCourse;
 
     public Student(String permanentCode, String lastName, String firstName, String programNumber, int credits, float cumulativeAverage, int numberOfInscriptions) {
         this.permanentCode = permanentCode;
@@ -26,9 +26,16 @@ public class Student implements Comparable<Student> {
         this.numberOfInscriptions = numberOfInscriptions;
     }
 
+    public Link getFirstCourse() {
+        return firstCourse;
+    }
 
-    public int compareTo(Student anotherStudent){
-        return this.permanentCode.compareTo(anotherStudent.permanentCode);
+    public void setFirstCourse(Link firstCourse) {
+        this.firstCourse = firstCourse;
+    }
+
+    public String toString(){
+        return this.firstName + " " + this.lastName + " [" + this.permanentCode + "]";
     }
 
 }

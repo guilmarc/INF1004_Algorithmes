@@ -16,19 +16,12 @@ public class LinkedList<T> {
 
     public void insertFirst(T data){
 
-        Link newLink = new Link(data);
-        newLink.setNext(first); // newLink --> old first
-        this.first = newLink;
+        //Link newLink = new Link(data);
+        //newLink.setNext(first); // newLink --> old first
+        //this.first = newLink;
     }
 
 
-    public Link deleteFirst() {
-
-        Link deletedLink = this.first;
-        first = first.getNext();
-        return deletedLink;
-
-    }
 
 
 

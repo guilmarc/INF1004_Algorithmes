@@ -2,11 +2,25 @@ import java.util.*;
 
 public class Homework3 {
 
-    ArrayList<Student> students = new ArrayList<Student>();
-    ArrayList<Course> courses = new ArrayList<Course>();
+    //ArrayList<Student> students = new ArrayList<Student>();
+    //ArrayList<Course> courses = new ArrayList<Course>();
+
+    static University university = new University();
 
     public static void main(String[] args) {
 	// write your code here
+        Homework3 homework3 = new Homework3();
+        homework3.generateData();
+
+        university.showCoursesForStudentIndex(0);
+
+        university.showStudentsForCourseIndex(2);
+
+        university.removeInscription(0, 2);
+
+        university.showCoursesForStudentIndex(0);
+
+        university.showStudentsForCourseIndex(2);
     }
 
     public void generateData(){
@@ -66,51 +80,61 @@ public class Homework3 {
         Course ESP1013 = new Course("ESP1013", "Espagnol écrit et parlé II", 40, ESP1012);
         Course ESP1017 = new Course("ESP1017", "Espagnol intermédiaire I", 40, ESP1013);
 
-        courses.add(INF1001);
-        courses.add(INF1002);
-        courses.add(INF1004);
-        courses.add(INF1006);
-        courses.add(INF1007);
-        courses.add(PIF1005);
-        courses.add(PIF1006);
-        courses.add(INF1008);
-        courses.add(SIF1015);
-        courses.add(INF1009);
-        courses.add(INF1010);
-        courses.add(INF1011);
-        courses.add(INF1014);
-        courses.add(INF1015);
-        courses.add(INF1016);
-        courses.add(INF1034);
-        courses.add(INF1035);
-        courses.add(SIF1053);
-        courses.add(SMI1001);
-        courses.add(SMI1002);
-        courses.add(STT1001);
-        courses.add(TIN1003);
+        university.addCourse(INF1001);
+        university.addCourse(INF1002);
+        university.addCourse(INF1004);
+        university.addCourse(INF1006);
+        university.addCourse(INF1007);
+        university.addCourse(PIF1005);
+        university.addCourse(PIF1006);
+        university.addCourse(INF1008);
+        university.addCourse(SIF1015);
+        university.addCourse(INF1009);
+        university.addCourse(INF1010);
+        university.addCourse(INF1011);
+        university.addCourse(INF1014);
+        university.addCourse(INF1015);
+        university.addCourse(INF1016);
+        university.addCourse(INF1034);
+        university.addCourse(INF1035);
+        university.addCourse(SIF1053);
+        university.addCourse(SMI1001);
+        university.addCourse(SMI1002);
+        university.addCourse(STT1001);
+        university.addCourse(TIN1003);
 
-        courses.add(INF1020);
-        courses.add(INF1030);
-        courses.add(INF1031);
+        university.addCourse(INF1020);
+        university.addCourse(INF1030);
+        university.addCourse(INF1031);
 
-        courses.add(INF1021);
-        courses.add(INF1032);
-        courses.add(INF1033);
-        courses.add(SIF1032);
+        university.addCourse(INF1021);
+        university.addCourse(INF1032);
+        university.addCourse(INF1033);
+        university.addCourse(SIF1032);
 
-        courses.add(INF1012);
-        courses.add(INF1013);
-        courses.add(INF1018);
-        courses.add(PRO1027);
+        university.addCourse(INF1012);
+        university.addCourse(INF1013);
+        university.addCourse(INF1018);
+        university.addCourse(PRO1027);
 
-        courses.add(ANG1015);
-        courses.add(ANG1017);
-        courses.add(ANG1019);
-        courses.add(ANG1020);
-        courses.add(ANG1036);
-        courses.add(ESP1012);
-        courses.add(ESP1013);
-        courses.add(ESP1017);
+        university.addCourse(ANG1015);
+        university.addCourse(ANG1017);
+        university.addCourse(ANG1019);
+        university.addCourse(ANG1020);
+        university.addCourse(ANG1036);
+        university.addCourse(ESP1012);
+        university.addCourse(ESP1013);
+        university.addCourse(ESP1017);
 
+        //String permanentCode, String lastName, String firstName, String programNumber, int credits, float cumulativeAverage, int numberOfInscriptions)
+        university.addStudent(new Student("CHOM02057803", "Choinière-Guilmette", "Marco", "7833", 21, 3.9f, 4));
+        university.addStudent(new Student("LEMA05068204", "Lemire", "Adam", "7833", 21, 4.1f, 4));
+        university.addStudent(new Student("NOUL05049504", "Noundou", "Leonnel", "7833", 21, 3.0f, 4));
+        university.addStudent(new Student("LARM17078901", "Larouche", "Mathieu", "7833", 21, 3.9f, 4));
+        university.addStudent(new Student("MAUP05067802", "Maurice", "Philippe", "7833", 21, 3.7f, 4));
+
+        university.addInscription(0, 2);
+        university.addInscription(0, 5);
+        university.addInscription(0, 18);
     }
 }
