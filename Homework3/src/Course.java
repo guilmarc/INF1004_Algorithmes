@@ -1,14 +1,15 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by guilmarc on 2016-03-28.
  */
-public class Course {
+public class Course implements Serializable{
 
     private String code;
     private String name;
-    private int maximumOfInscriptions;
-    private int numberOfInscriptions;
+    public int maximumOfInscriptions;
+    public int numberOfInscriptions;
     private ArrayList<Course> prerequisites;
     public Link firstStudent;
 

@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Created by guilmarc on 2016-03-28.
  */
-public class Student  {
+public class Student implements Serializable {
 
     private String permanentCode;
     private String lastName;

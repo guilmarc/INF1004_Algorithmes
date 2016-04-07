@@ -13,8 +13,8 @@ public class Homework3 {
         homework3.generateData();
 
         //For test only
-        //university.showCoursesForStudentIndex(0);
-        //university.showStudentsForCourseIndex(18);
+        university.showCoursesForStudentIndex(0);
+        university.showStudentsForCourseIndex(18);
 
         char menuInput;
         Scanner scanner = new Scanner(System.in);
@@ -56,7 +56,7 @@ public class Homework3 {
     }
 
     public void readDataFromFile() {
-
+        university.loadDataFromFile();
     }
 
     public void manageInscriptions(Scanner scanner){
@@ -64,7 +64,8 @@ public class Homework3 {
     }
 
     public void showStudentsForCourse(Scanner scanner){
-
+        university.showCoursesForStudentIndex(0);
+        university.showStudentsForCourseIndex(18);
     }
 
     public void showCoursesForStudent(Scanner scanner){
@@ -72,7 +73,7 @@ public class Homework3 {
     }
 
     public void saveDataToFile(){
-
+        university.saveDataToFile();
     }
 
     public void generateData(){
