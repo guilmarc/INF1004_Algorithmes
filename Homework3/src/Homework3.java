@@ -7,11 +7,11 @@ public class Homework3 {
     public static void main(String[] args) {
 
         Homework3 homework3 = new Homework3();
-        homework3.generateData();
+        //homework3.generateData();
 
         //For test only
-        university.showCoursesForStudentIndex(0);
-        university.showStudentsForCourseIndex(18);
+        //university.showCoursesForStudentIndex(0);
+        //university.showStudentsForCourseIndex(18);
 
         char menuInput;
         Scanner scanner = new Scanner(System.in);
@@ -31,15 +31,15 @@ public class Homework3 {
             menuInput = scanner.next().toUpperCase().charAt(0);
 
             switch (menuInput) {
-                case 'L': homework3.readDataFromFile();
+                case 'L': Homework3.readDataFromFile();
                     break;
-                case 'I': homework3.manageInscriptions(scanner);
+                case 'I': Homework3.manageInscriptions(scanner);
                     break;
-                case 'E': homework3.showStudentsForCourse(scanner);
+                case 'E': Homework3.showStudentsForCourse(scanner);
                     break;
-                case 'C': homework3.showCoursesForStudent(scanner);
+                case 'C': Homework3.showCoursesForStudent(scanner);
                     break;
-                case 'S': homework3.saveDataToFile();
+                case 'S': Homework3.saveDataToFile();
                     break;
                 case 'Q': //Do nothing, program will close...
                     break;
@@ -52,45 +52,152 @@ public class Homework3 {
 
     }
 
-    public void readDataFromFile() {
+    public static void readDataFromFile() {
         university.loadDataFromFile();
     }
 
-    public void manageInscriptions(Scanner scanner){
-
+    public static void saveDataToFile(){
+        university.saveDataToFile();
     }
 
-    public void showStudentsForCourse(Scanner scanner){
+    public static void manageInscriptions(Scanner scanner){
+        char menuInput;
+        do {
+            System.out.println("******************************************************");
+            System.out.println("* [A] = Ajouter une inscription                      *");
+            System.out.println("* [R] = Retirer une inscription                      *");
+            System.out.println("* [M] = Modifier une inscrition                      *");
+            System.out.println("******************************************************");
+            System.out.println("* [Q] = Quitter le menu                              *");
+            System.out.println("******************************************************");
 
-        if(university.courses.size() > 0) {
-            int courseInput; boolean validInput;
+            menuInput = scanner.next().toUpperCase().charAt(0);
 
-            do {
-            for (int i = 0; i < university.courses.size(); i++) {
-                System.out.println("[" + i + "] " + university.courses.get(i));
+            switch (menuInput) {
+                case 'A': Homework3.addInscription(scanner);
+                    break;
+                case 'R': Homework3.removeInscription(scanner);
+                    break;
+                case 'M': Homework3.updateInscription(scanner);
+                    break;
+                case 'Q': //Do nothing, menu will quit...
+                    break;
             }
-            System.out.println("\nVeuilez choisir un cours [0 à " + (university.courses.size() - 1) + "] : ");
+        }
+        while(menuInput != 'Q') ;
+    }
 
-            courseInput = scanner.nextInt();
-            if ((0 <= courseInput) && (courseInput < university.courses.size())) {
-                validInput = true;
-            } else {
-                System.out.println("ERREUR: Entrée invalide [" + courseInput + "]");
-                validInput = false;
+    public static boolean addInscription(Scanner scanner) {
+
+        boolean added = false;
+
+        System.out.println("Sélection d'un étudiant à inscrire");
+        System.out.println("**********************************");
+        int studentIndex = Homework3.getStudentIndex(scanner);
+
+        if (studentIndex >= 0) {
+            System.out.println("Sélection d'un cours à inscrire");
+            System.out.println("*******************************");
+            int courseIndex = Homework3.getCourseIndex(scanner);
+
+            if (courseIndex >= 0) {
+
+                if (university.addInscription(studentIndex, courseIndex)) {
+                    System.out.println("Étudiant inscrit avec succès !");
+                    university.showStudentsForCourseIndex(courseIndex);
+                    added = true;
+                }
             }
+        }
 
-            } while (! validInput);
+        return added;
+    }
 
-            university.showStudentsForCourseIndex(courseInput);
+    public static boolean removeInscription(Scanner scanner) {
 
-        } else {
-            System.out.println("Il n'y a actuellement aucun cours de disponible");
+        boolean removed = false;
+
+        System.out.println("Sélection d'un étudiant");
+        System.out.println("***********************");
+        int studentIndex = Homework3.getStudentIndex(scanner);
+
+        if (studentIndex >= 0) {
+            System.out.println("Sélection d'un cours à désinscrire");
+            System.out.println("**********************************");
+            int courseIndex = Homework3.getCourseIndex(scanner);
+
+            if (courseIndex >= 0) {
+                if (university.removeInscription(studentIndex, courseIndex)) {
+
+                    System.out.println("Étudiant désinscrit avec succès !");
+                    university.showStudentsForCourseIndex(courseIndex);
+                    removed = true;
+                } else {
+                    System.out.print("ERREUR: Cet étudiant n'était pas inscrit à ce cours");
+                }
+            }
+        }
+
+        return removed;
+    }
+
+    public static void updateInscription(Scanner scanner) {
+        System.out.println("Sélection d'un étudiant");
+        System.out.println("***********************");
+        int studentIndex = Homework3.getStudentIndex(scanner);
+
+        if (studentIndex >= 0) {
+            System.out.println("Sélection d'un cours à désinscrire");
+            System.out.println("**********************************");
+            int sourceCourseIndex = Homework3.getCourseIndex(scanner);
+
+            if (sourceCourseIndex >= 0) {
+                if (university.removeInscription(studentIndex, sourceCourseIndex)) {
+
+                    System.out.println("Sélection d'un cours à inscrire");
+                    System.out.println("*******************************");
+                    int destinationCourseIndex = Homework3.getCourseIndex(scanner);
+
+                    if (destinationCourseIndex >= 0) {
+
+                        if (university.addInscription(studentIndex, destinationCourseIndex)) {
+                            System.out.println("Étudiant inscrit avec succès !");
+                            university.showStudentsForCourseIndex(destinationCourseIndex);
+                        }
+                    }
+
+                } else {
+                    System.out.print("ERREUR: Cet étudiant n'était pas inscrit à ce cours");
+                }
+            }
         }
     }
 
-    public void showCoursesForStudent(Scanner scanner){
+    public static void showStudentsForCourse(Scanner scanner){
+
+
+        int index = Homework3.getCourseIndex(scanner);
+        if (index >= 0) {
+            university.showStudentsForCourseIndex(index);
+        }
+
+    }
+
+    public static void showCoursesForStudent(Scanner scanner){
+
+        int index = Homework3.getStudentIndex(scanner);
+        if (index >= 0) {
+            university.showCoursesForStudentIndex(index);
+        }
+    }
+
+    public static int getStudentIndex(Scanner scanner) {
+
+        int studentInput = -1;
+        //Scanner scanner = new Scanner(System.in);
+
         if(university.students.size() > 0) {
-            int studentInput; boolean validInput;
+            boolean validInput;
 
             do {
                 for (int i = 0; i < university.students.size(); i++) {
@@ -108,16 +215,47 @@ public class Homework3 {
 
             } while (! validInput);
 
-            university.showCoursesForStudentIndex(studentInput);
+        } else {
+            System.out.println("Il n'y a actuellement aucun étudiant à l'université");
+        }
+
+        //scanner.close();
+        return studentInput;
+    }
+
+    public static int getCourseIndex(Scanner scanner) {
+
+        int courseInput = -1;
+        //Scanner scanner = new Scanner(System.in);
+
+        if(university.courses.size() > 0) {
+            boolean validInput;
+
+            do {
+                for (int i = 0; i < university.courses.size(); i++) {
+                    System.out.println("[" + i + "] " + university.courses.get(i));
+                }
+                System.out.println("\nVeuilez choisir un cours [0 à " + (university.courses.size() - 1) + "] : ");
+
+                courseInput = scanner.nextInt();
+                if ((0 <= courseInput) && (courseInput < university.courses.size())) {
+                    validInput = true;
+                } else {
+                    System.out.println("ERREUR: Entrée invalide [" + courseInput + "]");
+                    validInput = false;
+                }
+
+            } while (! validInput);
 
         } else {
-            System.out.println("Il n'y a actuellement étudiant à l'université");
+            System.out.println("Il n'y a actuellement aucun cours de disponible");
         }
+
+        //scanner.close();
+        return courseInput;
     }
 
-    public void saveDataToFile(){
-        university.saveDataToFile();
-    }
+
 
     public void generateData(){
 

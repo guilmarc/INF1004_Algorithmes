@@ -75,39 +75,49 @@ public class University {
         this.addInscription(studentIndex, newCourseIndex);
     }
 
-    public void addInscription(int studentIndex, int courseIndex) {
-        try {
+    public boolean addInscription(int studentIndex, int courseIndex) {
 
+        if (this.findInscription( studentIndex, courseIndex) == null) {
 
+            try {
 
-            Link newLink = new Link(studentIndex, courseIndex);
+                Link newLink = new Link(studentIndex, courseIndex);
 
-            Student student = students.get(studentIndex);
-            Course course = courses.get(courseIndex);
+                Student student = students.get(studentIndex);
+                Course course = courses.get(courseIndex);
 
-            if (course.available()) {
+                if (course.available()) {
 
-                //Insert the new course for the selected student
-                newLink.nextCourse = student.firstCourse;
-                student.firstCourse = newLink;
+                    //Insert the new course for the selected student
+                    newLink.nextCourse = student.firstCourse;
+                    student.firstCourse = newLink;
 
-                //Insert the new student for the selected course
-                newLink.nextStudent = course.firstStudent;
-                course.firstStudent = newLink;
+                    //Insert the new student for the selected course
+                    newLink.nextStudent = course.firstStudent;
+                    course.firstStudent = newLink;
 
-                course.numberOfInscriptions++;
+                    course.numberOfInscriptions++;
+                    return true;
 
-            } else {
-                System.out.println("ERREUR: LE cours " + course + " n'est plus disponible.  Il est complet !");
+                } else {
+                    System.out.println("ERREUR: Le cours " + course + " n'est plus disponible.  Il est complet !");
+                    return false;
+                }
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println("ERREUR: Index invalide pour le cours ou l'étudiant !");
+                return false;
             }
-        } catch (IndexOutOfBoundsException ex) {
-            System.out.println("ERREUR: Index invalide pour le cours ou l'étudiant !");
+        } else {
+            System.out.println("ERREUR: L'étudiant est déjà inscrit à ce cours !");
+            return false;
         }
     }
 
-    public void removeInscription(int studentIndex, int courseIndex) {
-        this.removeCourseForStudentIndex(studentIndex, courseIndex);
-        this.removeStudentForCourseIndex(courseIndex, studentIndex);
+    public boolean removeInscription(int studentIndex, int courseIndex) {
+        Link removedCourse = this.removeCourseForStudentIndex(studentIndex, courseIndex);
+        Link removedStudent = this.removeStudentForCourseIndex(courseIndex, studentIndex);
+
+        return ((removedCourse != null) && (removedStudent != null));
     }
 
     private Link removeCourseForStudentIndex(int studentIndex, int courseIndex) {
@@ -170,15 +180,18 @@ public class University {
         }
     }
 
-    private Link findInscription(int studentIndex, int courseIndex){
+    public Link findInscription(int studentIndex, int courseIndex){
 
         Student student = students.get(studentIndex);
         Link current = student.firstCourse;
-        while(current.courseIndex != courseIndex) {
-            if(current.nextCourse == null) {
-                return null;
-            } else {
-                current = current.nextCourse;
+
+        if(current != null) {
+            while (current.courseIndex != courseIndex) {
+                if (current.nextCourse == null) {
+                    return null;
+                } else {
+                    current = current.nextCourse;
+                }
             }
         }
         return current;
