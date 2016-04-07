@@ -2,9 +2,6 @@ import java.util.Scanner;
 
 public class Homework3 {
 
-    //ArrayList<Student> students = new ArrayList<Student>();
-    //ArrayList<Course> courses = new ArrayList<Course>();
-
     static University university = new University();
 
     public static void main(String[] args) {
@@ -64,12 +61,58 @@ public class Homework3 {
     }
 
     public void showStudentsForCourse(Scanner scanner){
-        university.showCoursesForStudentIndex(0);
-        university.showStudentsForCourseIndex(18);
+
+        if(university.courses.size() > 0) {
+            int courseInput; boolean validInput;
+
+            do {
+            for (int i = 0; i < university.courses.size(); i++) {
+                System.out.println("[" + i + "] " + university.courses.get(i));
+            }
+            System.out.println("\nVeuilez choisir un cours [0 à " + (university.courses.size() - 1) + "] : ");
+
+            courseInput = scanner.nextInt();
+            if ((0 <= courseInput) && (courseInput < university.courses.size())) {
+                validInput = true;
+            } else {
+                System.out.println("ERREUR: Entrée invalide [" + courseInput + "]");
+                validInput = false;
+            }
+
+            } while (! validInput);
+
+            university.showStudentsForCourseIndex(courseInput);
+
+        } else {
+            System.out.println("Il n'y a actuellement aucun cours de disponible");
+        }
     }
 
     public void showCoursesForStudent(Scanner scanner){
+        if(university.students.size() > 0) {
+            int studentInput; boolean validInput;
 
+            do {
+                for (int i = 0; i < university.students.size(); i++) {
+                    System.out.println("[" + i + "] " + university.students.get(i));
+                }
+                System.out.println("\nVeuilez choisir un étudiant [0 à " + (university.students.size() - 1) + "] : ");
+
+                studentInput = scanner.nextInt();
+                if ((0 <= studentInput) && (studentInput < university.students.size())) {
+                    validInput = true;
+                } else {
+                    System.out.println("ERREUR: Entrée invalide [" + studentInput + "]");
+                    validInput = false;
+                }
+
+            } while (! validInput);
+
+            university.showCoursesForStudentIndex(studentInput);
+
+        } else {
+            System.out.println("Il n'y a actuellement étudiant à l'université");
+        }
     }
 
     public void saveDataToFile(){
@@ -78,7 +121,7 @@ public class Homework3 {
 
     public void generateData(){
 
-        Course INF1001 = new Course("INF1001", "Programmation Web", 40);
+        Course INF1001 = new Course("INF1001", "Programmation Web", 4);
         Course INF1002 = new Course("INF1002", "Introduction à la programmation objet", 40);
         Course INF1004 = new Course("INF1004", "Structures de données et algorithmes", 40, INF1002);
         Course INF1006 = new Course("INF1006", "Analyse et modélisation", 40, INF1004);
@@ -186,8 +229,14 @@ public class Homework3 {
         university.addStudent(new Student("LARM17078901", "Larouche", "Mathieu", "7833", 21, 3.9f, 4));
         university.addStudent(new Student("MAUP05067802", "Maurice", "Philippe", "7833", 21, 3.7f, 4));
 
+        university.addInscription(0, 0);
         university.addInscription(0, 2);
         university.addInscription(0, 5);
         university.addInscription(0, 18);
+
+        university.addInscription(1, 0);
+        university.addInscription(2, 0);
+        university.addInscription(3, 0);
+        university.addInscription(4, 0);
     }
 }

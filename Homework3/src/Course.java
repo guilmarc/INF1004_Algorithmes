@@ -24,6 +24,10 @@ public class Course implements Serializable{
         }
     }
 
+    public boolean available() {
+        return (this.numberOfInscriptions < this.maximumOfInscriptions);
+    }
+
     @Override
     public String toString(){
         return "[" + this.code + "] - " + this.name;

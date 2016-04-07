@@ -10,8 +10,8 @@ public class University {
     private final String COURSES_FILE = "courses.dat";
     private final String STUDENTS_FILE = "students.dat";
 
-    private ArrayList<Student> students = new ArrayList<Student>();
-    private ArrayList<Course> courses = new ArrayList<Course>();
+    public ArrayList<Student> students = new ArrayList<Student>();
+    public ArrayList<Course> courses = new ArrayList<Course>();
 
     public void addStudent(Student newStudent) {
         students.add(newStudent);
@@ -78,19 +78,28 @@ public class University {
     public void addInscription(int studentIndex, int courseIndex) {
         try {
 
+
+
             Link newLink = new Link(studentIndex, courseIndex);
 
             Student student = students.get(studentIndex);
             Course course = courses.get(courseIndex);
 
-            //Insert the new course for the selected student
-            newLink.nextCourse = student.firstCourse;
-            student.firstCourse = newLink;
+            if (course.available()) {
 
-            //Insert the new student for the selected course
-            newLink.nextStudent = course.firstStudent;
-            course.firstStudent = newLink;
+                //Insert the new course for the selected student
+                newLink.nextCourse = student.firstCourse;
+                student.firstCourse = newLink;
 
+                //Insert the new student for the selected course
+                newLink.nextStudent = course.firstStudent;
+                course.firstStudent = newLink;
+
+                course.numberOfInscriptions++;
+
+            } else {
+                System.out.println("ERREUR: LE cours " + course + " n'est plus disponible.  Il est complet !");
+            }
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("ERREUR: Index invalide pour le cours ou l'étudiant !");
         }
@@ -306,6 +315,7 @@ public class University {
             course.numberOfInscriptions = 0;
         }
     }
+
 
 
 }
